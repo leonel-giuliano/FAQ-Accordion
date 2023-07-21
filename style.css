@@ -1,0 +1,214 @@
+:root {
+    --clr-card: 0, 100%, 100%;
+    --clr-title: 245, 25%, 17%;
+
+    --clr-gr-bg-top: 273, 76%, 66%;
+    --clr-gr-bg-bottom: 250, 74%, 65%;
+
+    --clr-ho-question: 14, 90%, 65%;
+
+    --fs: 12px;
+    --ff: 'Kumbh Sans', sans-serif;
+    --fw-regular: 400;
+    --fw-medium: 500;
+    --fw-semi-bold: 600;
+    --fw-bold: 700;
+
+    --tran-duration: .2s;
+}
+
+@font-face {
+    font-family: 'Kumbh Sans';
+    font-display: swap;
+    src: local('Kumbh Sans Regular'),
+        url('fonts/KumbhSans-VariableFont_YOPQ\,wght.ttf')
+        format('ttf');
+    font-size: 100 900;
+}
+
+html { font-size: var(--fs); }
+
+body {
+    font-family: var(--ff);
+    background-image: linear-gradient(hsla(var(--clr-gr-bg-top)), hsla(var(--clr-gr-bg-bottom)));
+}
+
+.grid-flow {
+    display: grid;
+    place-items: center;
+}
+
+.card {
+    grid-template-rows: 64px;
+    width: min(330px, 90%);
+    height: min(600px, 80%);
+}
+
+.faq {
+    align-items: start;
+    width: 100%;
+    height: 100%;
+    background-color: hsla(var(--clr-card));
+    border-radius: 2rem;
+}
+
+.computer-wrapper {
+    position: relative;
+    width: 235px;
+    height: 64px;
+}
+
+.computer-mobile {
+    position: absolute;
+    top: -42px;
+    width: 100%;
+}
+
+.img-wrapper__desktop,
+.shadow-container { display: none; }
+
+.title {
+    font-size: 2rem;
+    font-weight: var(--fw-bold);
+}
+
+.about { width: 95%; }
+
+.info {
+    width: inherit;
+    padding: 1rem 0 .75rem;
+    border-bottom: 1px solid hsla(var(--clr-title), .2);
+}
+
+.line {
+    cursor: pointer;
+    transition: color var(--tran-duration);
+
+    &:not(.selected):hover { color: hsla(var(--clr-ho-question)); }
+
+    &.selected {
+        animation-name: line;
+        animation-duration: var(--tran-duration);
+        animation-fill-mode: forwards;
+    }
+}
+
+@keyframes line {
+    0% { font-weight: var(--fw-regular); }
+
+    33% { font-weight: var(--fw-medium); }
+
+    67% { font-weight: var(--fw-semi-bold); }
+
+    100% { font-weight: var(--fw-bold); }
+}
+
+.answer-wrapper {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows var(--tran-duration);
+
+    &.selected { grid-template-rows: 1fr; }
+}
+
+.answer {
+    padding-top: .75rem;
+    opacity: .875;
+    overflow: hidden;
+}
+
+.flex-flow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.question { font-size: 1.1rem; }
+
+.arrow {
+    height: min-content;
+    transition: transform var(--tran-duration);
+
+    &.selected { transform: rotate(-180deg); }
+}
+
+.attribution {
+    position: absolute;
+    bottom: 0;
+}
+
+@media only screen and (min-width: 500px) {
+    .grid-flow:not(body) { justify-items: left; }
+
+    .card {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: none;
+        width: min(920px, 80%);
+        height: min(510px, 90%);
+        background-color: hsla(var(--clr-card));
+        border-radius: 2rem;
+    }
+
+    :where(.computer-mobile,
+    .computer-mobile__shadow) { display: none; }
+
+    .computer-wrapper {
+        display: grid;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
+
+    .shadow-container {
+        position: absolute;
+        display: block;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .computer-desktop__shadow {
+        position: absolute;
+        top: -5%;
+        left: -90%;
+    }
+
+    .img-wrapper__desktop {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: min-content;
+    }
+
+    .computer-desktop__wrapper {
+        position: relative;
+        width: 100%;
+        overflow-x: clip;
+    }
+
+    .computer-desktop {
+        display: block;
+        width: 100%;
+        transform: translateX(-15%);
+    }
+
+    .computer-desktop__box {
+        position: absolute;
+        top: 37.5%;
+        left: -16.25%;
+        width: 40%;
+        transition: transform .3s ease-in-out;
+
+        &.selected { transform: translateX(-30%); }
+    }
+
+    .computer-desktop__shadow {
+        width: 175%;
+    }
+
+    .faq {
+        gap: 2rem;
+        height: min-content;
+    }
+}
